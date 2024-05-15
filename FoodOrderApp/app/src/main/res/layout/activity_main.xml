@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/yellow"
+    android:background="@drawable/back_color"
     tools:context=".Activity.MainActivity">
     <ScrollView
         android:id="@+id/scrollView2"
@@ -73,6 +73,8 @@
                     android:id="@+id/viewPager2"
                     android:layout_width="match_parent"
                     android:layout_height="130dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -136,6 +138,7 @@
     </ScrollView>
 
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
+        android:id="@+id/bottomMenu"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="@color/white"

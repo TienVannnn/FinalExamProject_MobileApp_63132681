@@ -37,7 +37,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         holder.tvCatName.setText(items.get(position).getName());
         int idImg = context.getResources().getIdentifier(items.get(position).getImagePath(), "drawable", holder.itemView.getContext().getPackageName());
-        Glide.with(context).load(idImg).into(holder.imgCat);
+        Glide.with(context).load(items.get(position).getImagePath()).into(holder.imgCat);
     }
 
     @Override
