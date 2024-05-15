@@ -21,18 +21,16 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     ArrayList<Category> items;
     Context context;
 
-    public CategoryAdapter(ArrayList<Category> items, Context context) {
+    public CategoryAdapter(ArrayList<Category> items) {
         this.items = items;
-        this.context = context;
     }
 
     @NonNull
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-       LayoutInflater layoutInflater = LayoutInflater.from(context);
-       View v = layoutInflater.inflate(R.layout.viewholder_category, parent, false);
-       CategoryViewHolder c = new CategoryViewHolder(v);
-       return c;
+        context = parent.getContext();
+       View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_category,parent,false);
+       return new CategoryViewHolder(v);
     }
 
     @Override
