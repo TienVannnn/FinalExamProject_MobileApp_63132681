@@ -16,11 +16,11 @@
         app:cnb_backgroundColor ="@color/red"
         android:title="Favorites" />
     <item
-        android:id="@+id/cart"
-        android:icon="@drawable/btn_3"
+        android:id="@+id/notify"
+        android:icon="@drawable/bell"
         app:cnb_iconColor = "@color/white"
         app:cnb_backgroundColor ="@color/red"
-        android:title="Cart" />
+        android:title="Notify" />
     <item
         android:id="@+id/profile"
         android:icon="@drawable/btn_4"
