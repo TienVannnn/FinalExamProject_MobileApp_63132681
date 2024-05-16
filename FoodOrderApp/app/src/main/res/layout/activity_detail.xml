@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/imageView8"
+                    android:id="@+id/picDT"
                     android:layout_width="match_parent"
                     android:layout_height="400dp"
                     android:scaleType="centerCrop"
@@ -34,9 +34,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:src="@tools:sample/avatars"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView8"
+                    app:layout_constraintBottom_toBottomOf="@+id/picDT"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView8"
+                    app:layout_constraintTop_toBottomOf="@+id/picDT"
                     app:srcCompat="@drawable/favorite" />
 
                 <ImageView
@@ -143,7 +143,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -175,9 +175,9 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:id="@+id/btnTru"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
                     android:layout_marginStart="16dp"
                     android:background="@drawable/edt_background"
                     android:gravity="center"
@@ -198,13 +198,13 @@
                     android:textSize="20dp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textView10"
+                    app:layout_constraintStart_toEndOf="@+id/btnTru"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/btnCong"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
                     android:layout_marginStart="8dp"
                     android:background="@drawable/edt_background"
                     android:gravity="center"
