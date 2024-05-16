@@ -48,7 +48,7 @@ public class DetailActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 num+=1;
-                binding.tvNum.setText(num);
+                binding.tvNum.setText(String.valueOf(num));
                 binding.tvTotal.setText("$" + (num * object.getPrice()));
             }
         });
@@ -58,7 +58,7 @@ public class DetailActivity extends BaseActivity {
             public void onClick(View v) {
                 if(num > 1){
                     num-=1;
-                    binding.tvNum.setText(num);
+                    binding.tvNum.setText(String.valueOf(num));
                     binding.tvTotal.setText("$" + (num * object.getPrice()));
                 }
             }

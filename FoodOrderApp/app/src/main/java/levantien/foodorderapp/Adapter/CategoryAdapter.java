@@ -1,6 +1,7 @@
 package levantien.foodorderapp.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
+import levantien.foodorderapp.Activity.ListFoodActivity;
 import levantien.foodorderapp.Domain.Category;
 import levantien.foodorderapp.R;
 
@@ -36,8 +38,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         holder.tvCatName.setText(items.get(position).getName());
-        int idImg = context.getResources().getIdentifier(items.get(position).getImagePath(), "drawable", holder.itemView.getContext().getPackageName());
+
         Glide.with(context).load(items.get(position).getImagePath()).into(holder.imgCat);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ListFoodActivity.class);
+                intent.putExtra("CategoryId", items.get(position).getId());
+                intent.putExtra("CategoryName", items.get(position).getName());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
