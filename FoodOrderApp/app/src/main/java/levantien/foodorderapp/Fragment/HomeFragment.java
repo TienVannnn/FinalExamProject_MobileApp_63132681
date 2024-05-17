@@ -1,5 +1,6 @@
 package levantien.foodorderapp.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import levantien.foodorderapp.Activity.CartActivity;
+import levantien.foodorderapp.Activity.ListFoodActivity;
 import levantien.foodorderapp.Activity.MainActivity;
 import levantien.foodorderapp.Adapter.CategoryAdapter;
 import levantien.foodorderapp.Adapter.SliderAdapter;
@@ -53,7 +56,7 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initCategory();
         initBanner();
-//        setVariable();
+        setVariable();
     }
 
     private void initCategory() {
@@ -115,8 +118,25 @@ public class HomeFragment extends Fragment {
         binding.viewPager2.setPageTransformer(pageTransformer);
     }
 
-//    private void setVariable() {
-//        binding.bottomMenu.setItemSelected(R.id.home, true);
-//    }
+    private void setVariable() {
+        binding.btnCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), CartActivity.class));
+            }
+        });
+        binding.btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = binding.edtSearch.getText().toString();
+                if(!text.isEmpty()){
+                    Intent intent = new Intent(getContext(), ListFoodActivity.class);
+                    intent.putExtra("text", text);
+                    intent.putExtra("isSearch", true);
+                    startActivity(intent);
+                }
+            }
+        });
+    }
 
 }

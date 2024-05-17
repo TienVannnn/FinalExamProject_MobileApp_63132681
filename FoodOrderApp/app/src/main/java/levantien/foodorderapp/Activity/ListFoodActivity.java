@@ -25,6 +25,8 @@ public class ListFoodActivity extends BaseActivity {
     ActivityListFoodBinding binding;
     private int categoryId;
     private String categoryName;
+    private String searchText;
+    private boolean isSearch;
 
 
     @Override
@@ -41,7 +43,13 @@ public class ListFoodActivity extends BaseActivity {
         DatabaseReference reference = database.getReference("Foods");
         binding.progressBar.setVisibility(View.VISIBLE);
         ArrayList<Foods> list = new ArrayList<>();
-        Query query = reference.orderByChild("CategoryId").equalTo(categoryId);
+        Query query;
+        if(isSearch){
+            query = reference.orderByChild("Title").startAt(searchText).endAt(searchText + '\uf8ff');
+        }
+        else {
+            query = reference.orderByChild("CategoryId").equalTo(categoryId);
+        }
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -67,6 +75,8 @@ public class ListFoodActivity extends BaseActivity {
     private void getIntentExtra() {
         categoryId = getIntent().getIntExtra("CategoryId", 0);
         categoryName = getIntent().getStringExtra("CategoryName");
+        searchText = getIntent().getStringExtra("text");
+        isSearch = getIntent().getBooleanExtra("isSearch", false);
         binding.tvTitle.setText(categoryName);
         binding.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override

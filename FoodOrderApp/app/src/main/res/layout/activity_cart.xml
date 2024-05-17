@@ -8,7 +8,7 @@
     tools:context=".Activity.CartActivity">
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvEmpty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Your Cart Is Empty"
@@ -67,8 +67,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="15dp"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp" />
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp" />
 
             <TextView
                 android:id="@+id/textView5"
