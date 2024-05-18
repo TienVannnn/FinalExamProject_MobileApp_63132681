@@ -1,6 +1,8 @@
 package levantien.foodorderapp.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,7 @@ import androidx.viewpager2.widget.MarginPageTransformer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,6 +40,9 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference usersReference;
+    String phoneId;
+    boolean isLogin;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,6 +60,10 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        isLogin = sharedPreferences.getBoolean("isLogin", false);
+        usersReference = database.getReference("users");
+        phoneId = sharedPreferences.getString("phoneId", "");
         initCategory();
         initBanner();
         setVariable();
@@ -119,6 +129,27 @@ public class HomeFragment extends Fragment {
     }
 
     private void setVariable() {
+        if(!isLogin){
+            binding.tvName.setText("Customer A");
+        }
+        else {
+            usersReference.child(phoneId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        String name = snapshot.child("name").getValue(String.class);
+                        binding.tvName.setText(name);
+                    } else {
+                        Toast.makeText(getContext(), "User data not found", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(getContext(), "Failed to load user data", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
         binding.btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
