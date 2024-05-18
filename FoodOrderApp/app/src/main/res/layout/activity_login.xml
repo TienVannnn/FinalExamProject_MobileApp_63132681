@@ -6,25 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".Activity.LoginActivity">
 
-    <EditText
-        android:id="@+id/edtPass"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/edt_background_ls"
-        android:drawableStart="@drawable/password"
-        android:drawablePadding="16dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="text"
-        android:textColorHint="#3B608C"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtEmail" />
 
     <ImageView
         android:id="@+id/imageView15"
@@ -42,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="-50dp"
+        android:layout_marginTop="-70dp"
         android:text="Login"
         android:textColor="#6672FF"
         android:textSize="40dp"
@@ -51,7 +32,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView15" />
 
     <EditText
-        android:id="@+id/edtEmail"
+        android:id="@+id/edtPhone"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="32dp"
@@ -60,14 +41,34 @@
         android:background="@drawable/edt_background_ls"
         android:ems="10"
         android:inputType="text"
-        android:drawableStart="@drawable/email"
+        android:drawableStart="@drawable/namelogin"
         android:drawablePadding="16dp"
-        android:hint="Email"
+        android:hint="Phone Number"
         android:textSize="18sp"
         android:textColorHint="#3B608C"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <EditText
+        android:id="@+id/edtPass"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/edt_background_ls"
+        android:drawableStart="@drawable/password2"
+        android:drawablePadding="16dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColorHint="#3B608C"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtPhone" />
 
     <ImageView
         android:id="@+id/btnDN"
@@ -75,7 +76,6 @@
         android:layout_height="56dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:src="@tools:sample/avatars"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtPass"
         app:srcCompat="@drawable/btn_arraw1" />
@@ -127,7 +127,7 @@
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="-50dp"
         android:text="Are you new user? "
@@ -142,7 +142,7 @@
         android:id="@+id/btnDK"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="130dp"
+        android:layout_marginEnd="120dp"
         android:text="Register"
         android:textColor="#021832"
         android:textSize="16sp"

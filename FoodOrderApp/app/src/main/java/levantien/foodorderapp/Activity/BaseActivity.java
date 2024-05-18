@@ -12,6 +12,7 @@ import levantien.foodorderapp.R;
 
 public class BaseActivity extends AppCompatActivity {
     FirebaseDatabase database;
+    boolean isLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
