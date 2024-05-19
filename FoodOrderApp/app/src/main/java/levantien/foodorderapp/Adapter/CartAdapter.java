@@ -85,6 +85,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             notifyDataSetChanged();
             double totalFee = calculateTotalFee();
             ((CartActivity)context).updateTotalFee(totalFee);
+            if(ds.isEmpty()){
+                ((CartActivity)context).hideLayout();
+            }
         });
     }
 

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 import levantien.foodorderapp.Adapter.CartAdapter;
 import levantien.foodorderapp.Domain.Foods;
+import levantien.foodorderapp.Domain.Order;
 import levantien.foodorderapp.Helper.ChangeNumberItemsListener;
 import levantien.foodorderapp.Helper.ManagmentCart;
 import levantien.foodorderapp.R;
@@ -49,49 +50,58 @@ public class CartActivity extends BaseActivity {
         binding.recycleCart.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         cartAdapter = new CartAdapter(cartItemList, this, phoneId);
         binding.recycleCart.setAdapter(cartAdapter);
-
         loadCartItems();
         setVariable();
     }
 
     private void loadCartItems() {
-        if (!isLogin) {
-           binding.tvEmpty.setText("Your cart is empty");
-        } else {
-            usersReference.child(phoneId).child("cart").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()) {
-                        cartItemList.clear();
-                        double totalFee = 0; // Tạo biến để tính tổng giá tiền của giỏ hàng
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                            Foods cartItem = dataSnapshot.getValue(Foods.class);
-                            cartItem.setKey(dataSnapshot.getKey());
-                            cartItemList.add(cartItem);
-                            totalFee += cartItem.getPrice() * cartItem.getQuantity(); // Tính toán tổng giá tiền
-                        }
-                        cartAdapter.notifyDataSetChanged();
-
-                        if (cartItemList.isEmpty()) {
-                            binding.tvEmpty.setVisibility(View.VISIBLE);
-                        } else {
-                            binding.tvEmpty.setVisibility(View.GONE);
-                        }
-
-                        // Sau khi tải danh sách giỏ hàng, tính toán và cập nhật giá tiền
-                        updateTotalFee(totalFee);
-                    } else {
-                        binding.tvEmpty.setVisibility(View.VISIBLE);
+        usersReference.child(phoneId).child("cart").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    cartItemList.clear();
+                    double totalFee = 0; // Tạo biến để tính tổng giá tiền của giỏ hàng
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        Foods cartItem = dataSnapshot.getValue(Foods.class);
+                        cartItem.setKey(dataSnapshot.getKey());
+                        cartItemList.add(cartItem);
+                        totalFee += cartItem.getPrice() * cartItem.getQuantity(); // Tính toán tổng giá tiền
                     }
-                }
+                    cartAdapter.notifyDataSetChanged();
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(CartActivity.this, "Failed to load cart items: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    if (cartItemList.isEmpty()) {
+                        hideLayout();
+                    } else {
+                        binding.tvEmpty.setVisibility(View.GONE);
+                        binding.tvOrderInfo.setVisibility(View.VISIBLE);
+                        binding.tvOrderSum.setVisibility(View.VISIBLE);
+                        binding.csInfo.setVisibility(View.VISIBLE);
+                        binding.csSum.setVisibility(View.VISIBLE);
+                        binding.btnCheckout.setVisibility(View.VISIBLE);
+                    }
+
+                    // Sau khi tải danh sách giỏ hàng, tính toán và cập nhật giá tiền
+                    updateTotalFee(totalFee);
+                } else {
+                    hideLayout();
                 }
-            });
-        }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(CartActivity.this, "Failed to load cart items: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+    public void hideLayout(){
+        binding.tvEmpty.setVisibility(View.VISIBLE);
+        binding.tvOrderInfo.setVisibility(View.GONE);
+        binding.tvOrderSum.setVisibility(View.GONE);
+        binding.csInfo.setVisibility(View.GONE);
+        binding.csSum.setVisibility(View.GONE);
+        binding.btnCheckout.setVisibility(View.GONE);
+    }
+
 
     // Phương thức này được thêm vào để cập nhật giá tiền
     public void updateTotalFee(double totalFee) {
@@ -116,5 +126,55 @@ public class CartActivity extends BaseActivity {
                 finish();
             }
         });
+
+        binding.btnCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Lấy thông tin từ các trường nhập
+                String name = binding.edtName.getText().toString();
+                String phoneNumber = binding.edtPhone.getText().toString();
+                String address = binding.edtAdd.getText().toString();
+
+                // Kiểm tra xem thông tin có hợp lệ không
+                if (name.isEmpty() || phoneNumber.isEmpty() || address.isEmpty()) {
+                    Toast.makeText(CartActivity.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Tạo đối tượng Order
+                Order order = new Order();
+                order.setName(name);
+                order.setPhoneNumber(phoneNumber);
+                order.setAddress(address);
+                order.setItems(cartItemList);
+
+                // Lưu đơn hàng vào Firebase
+                saveOrderToFirebase(order);
+            }
+        });
+    }
+
+    private void saveOrderToFirebase(Order order) {
+        // Tạo một nút "orders" trong Firebase
+        DatabaseReference userOrdersReference = FirebaseDatabase.getInstance().getReference("users").child(phoneId).child("orders");
+
+        // Push đơn hàng lên Firebase
+        String orderId = userOrdersReference.push().getKey();
+        userOrdersReference.child(orderId).setValue(order);
+
+        // Xóa giỏ hàng sau khi đặt hàng thành công
+        clearCart();
+
+        // Hiển thị thông báo hoặc chuyển đến màn hình khác
+        Toast.makeText(this, "Đơn hàng đã được đặt thành công", Toast.LENGTH_SHORT).show();
+    }
+
+    private void clearCart() {
+        // Xóa giỏ hàng trong Firebase
+        usersReference.child(phoneId).child("cart").removeValue();
+
+        // Xóa giỏ hàng trong adapter
+        cartItemList.clear();
+        cartAdapter.notifyDataSetChanged();
     }
 }
