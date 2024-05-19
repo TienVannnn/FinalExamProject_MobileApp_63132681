@@ -10,11 +10,13 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:paddingTop="30dp"
         android:text="Orders"
         android:textAlignment="center"
-        android:textColor="@color/red"
+        android:textColor="@color/white"
         android:textSize="25dp"
+        android:paddingBottom="20dp"
+        android:background="@drawable/custom_bg_order"
         android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -24,5 +26,16 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"/>
+
+    <TextView
+        android:id="@+id/tvEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:textColor="@color/red"
+        android:text="Orders is empty" />
 
 </LinearLayout>

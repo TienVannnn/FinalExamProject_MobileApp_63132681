@@ -7,24 +7,56 @@ public class Order {
     private String phoneNumber;
     private String address;
     private ArrayList<Foods> items;
-    private long orderTime;
+    private String subTotal;
+    private String ToTal;
+    private String delivery;
 
-    public long getOrderTime() {
-        return orderTime;
+    private String tax;
+
+    public String getSubTotal() {
+        return subTotal;
     }
 
-    public void setOrderTime(long orderTime) {
-        this.orderTime = orderTime;
+    public void setSubTotal(String subTotal) {
+        this.subTotal = subTotal;
+    }
+
+    public String getToTal() {
+        return ToTal;
+    }
+
+    public void setToTal(String toTal) {
+        ToTal = toTal;
+    }
+
+    public String getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(String delivery) {
+        this.delivery = delivery;
+    }
+
+    public String getTax() {
+        return tax;
+    }
+
+    public void setTax(String tax) {
+        this.tax = tax;
     }
 
     public Order() {
     }
 
-    public Order(String name, String phoneNumber, String address, ArrayList<Foods> items) {
+    public Order(String name, String phoneNumber, String address, ArrayList<Foods> items, String subTotal, String toTal, String delivery, String tax) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.items = items;
+        this.subTotal = subTotal;
+        ToTal = toTal;
+        this.delivery = delivery;
+        this.tax = tax;
     }
 
     public String getName() {

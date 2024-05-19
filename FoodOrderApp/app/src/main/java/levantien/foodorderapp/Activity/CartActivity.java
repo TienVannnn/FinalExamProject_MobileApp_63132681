@@ -134,6 +134,10 @@ public class CartActivity extends BaseActivity {
                 String name = binding.edtName.getText().toString();
                 String phoneNumber = binding.edtPhone.getText().toString();
                 String address = binding.edtAdd.getText().toString();
+                String subTotal = binding.tvTotalFee.getText().toString();
+                String Total = binding.tvTotal.getText().toString();
+                String delivery = binding.tvDelivery.getText().toString();
+                String tax = binding.tvTax.getText().toString();
 
                 // Kiểm tra xem thông tin có hợp lệ không
                 if (name.isEmpty() || phoneNumber.isEmpty() || address.isEmpty()) {
@@ -146,6 +150,10 @@ public class CartActivity extends BaseActivity {
                 order.setName(name);
                 order.setPhoneNumber(phoneNumber);
                 order.setAddress(address);
+                order.setSubTotal(subTotal);
+                order.setToTal(Total);
+                order.setDelivery(delivery);
+                order.setTax(tax);
                 order.setItems(cartItemList);
 
                 // Lưu đơn hàng vào Firebase
@@ -164,7 +172,7 @@ public class CartActivity extends BaseActivity {
 
         // Xóa giỏ hàng sau khi đặt hàng thành công
         clearCart();
-
+        hideLayout();
         // Hiển thị thông báo hoặc chuyển đến màn hình khác
         Toast.makeText(this, "Đơn hàng đã được đặt thành công", Toast.LENGTH_SHORT).show();
     }

@@ -73,16 +73,24 @@ public class NotifyFragment extends Fragment {
         userOrdersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
+                if(!isLogin){
+                    binding.tvEmpty.setVisibility(View.VISIBLE);
+                    binding.recycleOrder.setVisibility(View.GONE);
+                }
+                else {
+                    if (dataSnapshot.exists()) {
 //                    orderKeys.clear(); // Xóa danh sách các key cũ trước khi thêm các key mới
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        String key = snapshot.getKey(); // Lấy key của đơn hàng
-                        orderKeys.add(key); // Thêm key vào danh sách
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            String key = snapshot.getKey(); // Lấy key của đơn hàng
+                            orderKeys.add(key); // Thêm key vào danh sách
+                        }
+                        // Sau khi đã lấy danh sách các key, gọi phương thức để load thông tin đơn hàng
+                        loadOrders();
+                    } else {
+                        // Xử lý trường hợp không có đơn hàng nào
+                        binding.tvEmpty.setVisibility(View.VISIBLE);
+                        binding.recycleOrder.setVisibility(View.GONE);
                     }
-                    // Sau khi đã lấy danh sách các key, gọi phương thức để load thông tin đơn hàng
-                    loadOrders();
-                } else {
-                    // Xử lý trường hợp không có đơn hàng nào
                 }
             }
 
