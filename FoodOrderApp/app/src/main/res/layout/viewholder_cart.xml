@@ -109,4 +109,5 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/trash" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

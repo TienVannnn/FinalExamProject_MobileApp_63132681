@@ -43,7 +43,7 @@ public class FoodListAdapter extends RecyclerView.Adapter<FoodListAdapter.FoodLi
     public void onBindViewHolder(@NonNull FoodListViewHolder holder, int position) {
         holder.tilte.setText(list.get(position).getTitle());
         holder.time.setText(list.get(position).getTimeId() + "min");
-        holder.price.setText("$" + list.get(position).getPriceId());
+        holder.price.setText("$" + list.get(position).getPrice());
         holder.rate.setText("" + list.get(position).getStar());
         Glide.with(context).load(list.get(position).getImagePath()).transform(new CenterCrop(), new RoundedCorners(50))
                 .into(holder.pic);

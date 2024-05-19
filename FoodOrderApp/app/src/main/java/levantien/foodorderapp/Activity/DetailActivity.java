@@ -85,37 +85,39 @@ public class DetailActivity extends BaseActivity {
         binding.btnAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                object.setNumberInCart(num);
-//                managmentCart.insertFood(object);
-                double price = object.getPrice();
-                int quantity = Integer.parseInt(binding.tvNum.getText().toString());
-                double totalPrice = price * quantity;
-                usersReference.child(phoneId).child("cart").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String cartItemId = usersReference.child(phoneId).child("cart").push().getKey();
+                if(!isLogin){
+                    Toast.makeText(DetailActivity.this, "You need to log in to do this!", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    double price = object.getPrice();
+                    int quantity = Integer.parseInt(binding.tvNum.getText().toString());
+                    double totalPrice = price * quantity;
+                    usersReference.child(phoneId).child("cart").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            String cartItemId = usersReference.child(phoneId).child("cart").push().getKey();
 
-                        if (cartItemId != null) {
-                            DatabaseReference cartItemRef = usersReference.child(phoneId).child("cart").child(cartItemId);
-                            cartItemRef.child("Title").setValue(binding.tvTitle.getText().toString());
-                            cartItemRef.child("Price").setValue(object.getPrice());
-                            cartItemRef.child("quantity").setValue(quantity);
-                            cartItemRef.child("totalPrice").setValue(totalPrice);
-                            cartItemRef.child("Description").setValue(object.getDescription());
-                            cartItemRef.child("ImagePath").setValue(object.getImagePath());
+                            if (cartItemId != null) {
+                                DatabaseReference cartItemRef = usersReference.child(phoneId).child("cart").child(cartItemId);
+                                cartItemRef.child("Title").setValue(binding.tvTitle.getText().toString());
+                                cartItemRef.child("Price").setValue(object.getPrice());
+                                cartItemRef.child("Quantity").setValue(quantity);
+                                cartItemRef.child("TotalPrice").setValue(totalPrice);
+                                cartItemRef.child("Description").setValue(object.getDescription());
+                                cartItemRef.child("ImagePath").setValue(object.getImagePath());
 
-                            Toast.makeText(DetailActivity.this, "Added to cart successfully", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(DetailActivity.this, "Failed to add to cart", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(DetailActivity.this, "Added to cart successfully", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(DetailActivity.this, "Failed to add to cart", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(DetailActivity.this, "Database error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(DetailActivity.this, "Database error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         });
     }

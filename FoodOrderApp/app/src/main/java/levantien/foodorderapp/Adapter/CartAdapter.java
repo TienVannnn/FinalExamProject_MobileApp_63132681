@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -14,9 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
+import levantien.foodorderapp.Activity.CartActivity;
 import levantien.foodorderapp.Domain.Foods;
 import levantien.foodorderapp.Helper.ChangeNumberItemsListener;
 import levantien.foodorderapp.Helper.ManagmentCart;
@@ -24,16 +28,14 @@ import levantien.foodorderapp.R;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
     ArrayList<Foods> ds;
-    private ManagmentCart managmentCart;
-    ChangeNumberItemsListener changeNumberItemsListener;
 
     Context context;
+    DatabaseReference cartReference;
 
-    public CartAdapter(ArrayList<Foods> ds, ManagmentCart managmentCart, ChangeNumberItemsListener changeNumberItemsListener, Context context) {
+    public CartAdapter(ArrayList<Foods> ds, Context context, String phoneId) {
         this.ds = ds;
-        this.managmentCart = managmentCart;
-        this.changeNumberItemsListener = changeNumberItemsListener;
         this.context = context;
+        this.cartReference = FirebaseDatabase.getInstance().getReference("users").child(phoneId).child("cart");
     }
 
     @NonNull
@@ -48,50 +50,64 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
         Foods selected = ds.get(position);
         holder.title.setText(selected.getTitle());
-        holder.feeEachItem.setText("$" + (selected.getNumberInCart() * selected.getPrice()));
-        holder.num.setText(selected.getNumberInCart() + "");
+        holder.feeEachItem.setText("$" + (selected.getQuantity() * selected.getPrice()));
+        holder.num.setText(selected.getQuantity() + "");
         Glide.with(holder.itemView.getContext()).load(selected.getImagePath()).transform(new CenterCrop(), new RoundedCorners(30)).into(holder.pic);
-        holder.plusItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                managmentCart.plusNumberItem(ds, position, new ChangeNumberItemsListener() {
-                    @Override
-                    public void change() {
-                        notifyDataSetChanged();
-                        changeNumberItemsListener.change();
-                    }
-                });
+
+        holder.plusItem.setOnClickListener(v -> {
+            int currentNumber = selected.getQuantity();
+            selected.setQuantity(currentNumber + 1);
+            selected.setTotalPrice(selected.getQuantity() * selected.getPrice());
+            updateCartItemInFirebase(selected.getKey(), selected.getQuantity(), selected.getTotalPrice());
+            notifyDataSetChanged();
+
+            double totalFee = calculateTotalFee();
+            ((CartActivity)context).updateTotalFee(totalFee);
+        });
+
+        holder.minusItem.setOnClickListener(v -> {
+            int currentNumber = selected.getQuantity();
+            if (currentNumber > 1) {
+                selected.setQuantity(currentNumber - 1);
+                selected.setTotalPrice(selected.getQuantity() * selected.getPrice());
+                updateCartItemInFirebase(selected.getKey(), selected.getQuantity(), selected.getTotalPrice());
+                notifyDataSetChanged();
+                double totalFee = calculateTotalFee();
+                ((CartActivity)context).updateTotalFee(totalFee);
+            } else {
+                Toast.makeText(context, "Minimum quantity reached", Toast.LENGTH_SHORT).show();
             }
         });
-        holder.minusItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                managmentCart.minusNumberItem(ds, position, new ChangeNumberItemsListener() {
-                    @Override
-                    public void change() {
-                        notifyDataSetChanged();
-                        changeNumberItemsListener.change();
-                    }
-                });
-            }
+
+        holder.trashBtn.setOnClickListener(v -> {
+            ds.remove(position);
+            removeCartItemFromFirebase(selected.getKey());
+            notifyDataSetChanged();
+            double totalFee = calculateTotalFee();
+            ((CartActivity)context).updateTotalFee(totalFee);
         });
-        holder.trashBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                managmentCart.removeItem(ds, position, new ChangeNumberItemsListener() {
-                    @Override
-                    public void change() {
-                        notifyDataSetChanged();
-                        changeNumberItemsListener.change();
-                    }
-                });
-            }
-        });
+    }
+
+    private void updateCartItemInFirebase(String key, int quantity, double totalPrice) {
+        cartReference.child(key).child("Quantity").setValue(quantity);
+        cartReference.child(key).child("TotalPrice").setValue(totalPrice);
+    }
+
+    private void removeCartItemFromFirebase(String key) {
+        cartReference.child(key).removeValue();
     }
 
     @Override
     public int getItemCount() {
         return ds.size();
+    }
+
+    private double calculateTotalFee() {
+        double totalFee = 0;
+        for (Foods item : ds) {
+            totalFee += item.getPrice() * item.getQuantity();
+        }
+        return totalFee;
     }
 
 

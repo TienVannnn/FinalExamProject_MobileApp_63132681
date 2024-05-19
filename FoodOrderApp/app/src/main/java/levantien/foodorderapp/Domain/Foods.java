@@ -16,6 +16,33 @@ public class Foods implements Serializable {
     private int TimeValue;
     private String Title;
     private int numberInCart;
+    private double TotalPrice;
+    private int Quantity;
+    private String key;
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public double getTotalPrice() {
+        return TotalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        TotalPrice = totalPrice;
+    }
+
+    public int getQuantity() {
+        return Quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        Quantity = quantity;
+    }
 
     public Foods() {
     }

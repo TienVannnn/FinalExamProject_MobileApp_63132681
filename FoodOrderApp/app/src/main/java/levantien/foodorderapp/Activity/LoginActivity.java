@@ -79,5 +79,11 @@ public class LoginActivity extends BaseActivity {
                 startActivity(new Intent(LoginActivity.this, SignupActivity.class));
             }
         });
+        binding.btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }
