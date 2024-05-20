@@ -120,6 +120,22 @@ public class CartActivity extends BaseActivity {
 
 
     private void setVariable() {
+        usersReference.child(phoneId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String name = snapshot.child("name").getValue(String.class);
+                    binding.edtName.setText(name);
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
         binding.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,6 +191,7 @@ public class CartActivity extends BaseActivity {
         hideLayout();
         // Hiển thị thông báo hoặc chuyển đến màn hình khác
         Toast.makeText(this, "Đơn hàng đã được đặt thành công", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     private void clearCart() {

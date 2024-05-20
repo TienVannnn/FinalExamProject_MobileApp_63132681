@@ -22,8 +22,6 @@ import java.util.ArrayList;
 
 import levantien.foodorderapp.Activity.CartActivity;
 import levantien.foodorderapp.Domain.Foods;
-import levantien.foodorderapp.Helper.ChangeNumberItemsListener;
-import levantien.foodorderapp.Helper.ManagmentCart;
 import levantien.foodorderapp.R;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
@@ -121,11 +119,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.tvTitle);
-            feeEachItem = itemView.findViewById(R.id.feeEachItem);
+            feeEachItem = itemView.findViewById(R.id.tvPriceDe);
             plusItem = itemView.findViewById(R.id.btnPlus);
             minusItem = itemView.findViewById(R.id.btnMinus);
             num = itemView.findViewById(R.id.tvNum);
-            pic = itemView.findViewById(R.id.pic);
+            pic = itemView.findViewById(R.id.picDetail);
             trashBtn = itemView.findViewById(R.id.btnTrash);
         }
     }
