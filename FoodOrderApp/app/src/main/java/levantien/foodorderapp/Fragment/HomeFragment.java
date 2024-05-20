@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
@@ -22,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -29,9 +31,11 @@ import java.util.ArrayList;
 import levantien.foodorderapp.Activity.CartActivity;
 import levantien.foodorderapp.Activity.ListFoodActivity;
 import levantien.foodorderapp.Activity.MainActivity;
+import levantien.foodorderapp.Adapter.BestFoodAdapter;
 import levantien.foodorderapp.Adapter.CategoryAdapter;
 import levantien.foodorderapp.Adapter.SliderAdapter;
 import levantien.foodorderapp.Domain.Category;
+import levantien.foodorderapp.Domain.Foods;
 import levantien.foodorderapp.Domain.SliderItems;
 import levantien.foodorderapp.R;
 import levantien.foodorderapp.databinding.FragmentHomeBinding;
@@ -66,7 +70,36 @@ public class HomeFragment extends Fragment {
         phoneId = sharedPreferences.getString("phoneId", "");
         initCategory();
         initBanner();
+        initBestFood();
         setVariable();
+    }
+
+    private void initBestFood() {
+        DatabaseReference myRef = database.getReference("Foods");
+        binding.proBest.setVisibility(View.VISIBLE);
+        ArrayList<Foods> ds = new ArrayList<>();
+        Query query = myRef.orderByChild("BestFood").equalTo(true);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    for (DataSnapshot issue: snapshot.getChildren()){
+                        ds.add(issue.getValue(Foods.class));
+                    }
+                    if(ds.size() > 0){
+                        binding.recycleBestFood.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+                        RecyclerView.Adapter adapter = new BestFoodAdapter(ds, getContext());
+                        binding.recycleBestFood.setAdapter(adapter);
+                    }
+                    binding.proBest.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void initCategory() {
