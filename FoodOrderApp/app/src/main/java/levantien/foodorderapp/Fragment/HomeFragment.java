@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
+import androidx.viewpager2.widget.ViewPager2;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +49,7 @@ public class HomeFragment extends Fragment {
     DatabaseReference usersReference;
     String phoneId;
     boolean isLogin;
+    private Handler sliderHandler = new Handler();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -151,7 +154,8 @@ public class HomeFragment extends Fragment {
     }
 
     private void banners(ArrayList<SliderItems> items){
-        binding.viewPager2.setAdapter(new SliderAdapter(items, binding.viewPager2));
+        SliderAdapter adapter = new SliderAdapter(items, binding.viewPager2);
+        binding.viewPager2.setAdapter(adapter);
         binding.viewPager2.setClipChildren(false);
         binding.viewPager2.setClipToPadding(false);
         binding.viewPager2.setOffscreenPageLimit(3);
@@ -159,7 +163,31 @@ public class HomeFragment extends Fragment {
         CompositePageTransformer pageTransformer = new CompositePageTransformer();
         pageTransformer.addTransformer(new MarginPageTransformer(40));
         binding.viewPager2.setPageTransformer(pageTransformer);
+
+        // Tự động chuyển trang
+        binding.viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                sliderHandler.removeCallbacks(sliderRunnable);
+                sliderHandler.postDelayed(sliderRunnable, 5000); // Tự động chuyển sau 5 giây
+            }
+        });
     }
+
+    private Runnable sliderRunnable = new Runnable() {
+        @Override
+        public void run() {
+            int currentItem = binding.viewPager2.getCurrentItem();
+            int totalItems = binding.viewPager2.getAdapter().getItemCount();
+            if (currentItem < totalItems - 1) {
+                binding.viewPager2.setCurrentItem(currentItem + 1);
+            } else {
+                binding.viewPager2.setCurrentItem(0);
+            }
+        }
+    };
+
 
     private void setVariable() {
         if(!isLogin){
@@ -201,6 +229,12 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        sliderHandler.removeCallbacks(sliderRunnable);
     }
 
 }
