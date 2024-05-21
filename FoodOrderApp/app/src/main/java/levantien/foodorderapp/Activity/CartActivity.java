@@ -42,11 +42,10 @@ public class CartActivity extends BaseActivity {
         cartItemList = new ArrayList<>();
         myFirebaseDatabase = FirebaseDatabase.getInstance();
         usersReference = myFirebaseDatabase.getReference("users");
-
         SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
         isLogin = sharedPreferences.getBoolean("isLogin", false);
         phoneId = sharedPreferences.getString("phoneId", "");
-
+        binding.edtPhone.setText(phoneId);
         binding.recycleCart.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         cartAdapter = new CartAdapter(cartItemList, this, phoneId);
         binding.recycleCart.setAdapter(cartAdapter);

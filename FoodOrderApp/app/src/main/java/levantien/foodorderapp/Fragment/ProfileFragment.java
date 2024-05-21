@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import levantien.foodorderapp.Activity.ChangePasswordActivity;
 import levantien.foodorderapp.Activity.LoginActivity;
 import levantien.foodorderapp.Activity.SignupActivity;
 import levantien.foodorderapp.R;
@@ -94,6 +96,16 @@ public class ProfileFragment extends Fragment {
         });
     }
     private void setVariable() {
+        binding.purchaseHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment notifyFragment = new NotifyFragment();
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayout, notifyFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,6 +128,12 @@ public class ProfileFragment extends Fragment {
                 // Cập nhật UI để phản ánh trạng thái đăng xuất
                 isLogin = false;
                 initProfile();
+            }
+        });
+        binding.changePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), ChangePasswordActivity.class));
             }
         });
     }

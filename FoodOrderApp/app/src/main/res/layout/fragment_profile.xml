@@ -62,31 +62,31 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/accountProfile"
+                android:id="@+id/changePassword"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
                 android:padding="10dp"
-                android:background="@drawable/custom_profile"
+                android:background="@drawable/custom_edt"
                 android:layout_marginBottom="16dp">
 
                 <ImageView
                     android:id="@+id/imgAC"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="41dp"
+                    android:layout_height="39dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/lt" />
+                    app:srcCompat="@drawable/setting2" />
 
                 <TextView
                     android:id="@+id/tvAC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Account"
+                    android:text="Change password"
                     android:textColor="@color/dark_blue"
                     android:textSize="20dp"
                     android:textStyle="bold"
@@ -113,13 +113,13 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
                 android:padding="10dp"
-                android:background="@drawable/custom_profile"
+                android:background="@drawable/custom_edt"
                 android:layout_marginBottom="16dp">
 
                 <ImageView
                     android:id="@+id/imgFA"
-                    android:layout_width="50dp"
-                    android:layout_height="39dp"
+                    android:layout_width="42dp"
+                    android:layout_height="34dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -150,19 +150,20 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/purchaseHistory"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
                 android:padding="10dp"
-                android:background="@drawable/custom_profile"
+                android:background="@drawable/custom_edt"
                 android:layout_marginBottom="16dp">
 
                 <ImageView
                     android:id="@+id/imgMua"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="42dp"
+                    android:layout_height="39dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
