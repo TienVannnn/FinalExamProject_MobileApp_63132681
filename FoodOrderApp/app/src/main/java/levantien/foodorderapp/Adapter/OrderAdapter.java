@@ -50,7 +50,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             intent.putExtra("orderPhone", selected.getPhoneNumber());
             intent.putExtra("orderAddress", selected.getAddress());
             intent.putExtra("orderTotalPrice", selected.getToTal());
-            intent.putExtra("orderKey", orderKey);
             context.startActivity(intent);
         });
     }

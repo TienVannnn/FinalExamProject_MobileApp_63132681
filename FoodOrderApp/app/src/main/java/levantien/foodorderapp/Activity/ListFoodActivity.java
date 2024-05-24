@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,11 +29,10 @@ public class ListFoodActivity extends BaseActivity {
     private String searchText;
     private boolean isSearch;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding  = ActivityListFoodBinding.inflate(getLayoutInflater());
+        binding = ActivityListFoodBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         getIntentExtra();
@@ -44,30 +44,36 @@ public class ListFoodActivity extends BaseActivity {
         binding.progressBar.setVisibility(View.VISIBLE);
         ArrayList<Foods> list = new ArrayList<>();
         Query query;
-        if(isSearch){
+        if (isSearch) {
             query = reference.orderByChild("Title").startAt(searchText).endAt(searchText + '\uf8ff');
-        }
-        else {
+        } else {
             query = reference.orderByChild("CategoryId").equalTo(categoryId);
         }
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    for(DataSnapshot issue: snapshot.getChildren()){
+                if (snapshot.exists()) {
+                    for (DataSnapshot issue : snapshot.getChildren()) {
                         list.add(issue.getValue(Foods.class));
                     }
-                    if(list.size() > 0){
+                    if (list.size() > 0) {
                         binding.recycleFood.setLayoutManager(new LinearLayoutManager(ListFoodActivity.this, LinearLayoutManager.VERTICAL, false));
                         binding.recycleFood.setAdapter(new FoodListAdapter(list, ListFoodActivity.this));
+                    } else {
+                        Toast.makeText(ListFoodActivity.this, "No matching products found", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
-                    binding.progressBar.setVisibility(View.GONE);
+                } else {
+                    Toast.makeText(ListFoodActivity.this, "No matching products found", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
+                binding.progressBar.setVisibility(View.GONE);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                binding.progressBar.setVisibility(View.GONE);
+                Toast.makeText(ListFoodActivity.this, "Failed to fetch data", Toast.LENGTH_SHORT).show();
             }
         });
     }

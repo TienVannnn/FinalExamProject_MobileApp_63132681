@@ -51,6 +51,8 @@ public class CartActivity extends BaseActivity {
         binding.recycleCart.setAdapter(cartAdapter);
         loadCartItems();
         setVariable();
+
+
     }
 
     private void loadCartItems() {

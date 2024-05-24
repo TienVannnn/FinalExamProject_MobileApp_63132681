@@ -67,7 +67,7 @@ public class NotifyFragment extends Fragment {
 
     private void loadOrderKeys() {
         DatabaseReference userOrdersRef = FirebaseDatabase.getInstance().getReference("users")
-                .child(phoneId) // Thay "phoneId" bằng ID của người dùng
+                .child(phoneId)
                 .child("orders");
 
         userOrdersRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -79,7 +79,6 @@ public class NotifyFragment extends Fragment {
                 }
                 else {
                     if (dataSnapshot.exists()) {
-//                    orderKeys.clear(); // Xóa danh sách các key cũ trước khi thêm các key mới
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             String key = snapshot.getKey(); // Lấy key của đơn hàng
                             orderKeys.add(key); // Thêm key vào danh sách

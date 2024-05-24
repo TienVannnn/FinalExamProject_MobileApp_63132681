@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     android:background="@drawable/white_bg">
 
     <ImageView
-        android:id="@+id/img"
+        android:id="@+id/imgF"
         android:layout_width="150dp"
         android:layout_height="110dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvTitle"
+        android:id="@+id/tvTitleF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -25,7 +25,7 @@
         android:textColor="@color/dark_blue"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/img"
+        app:layout_constraintStart_toEndOf="@+id/imgF"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -37,11 +37,11 @@
         android:textColor="@color/red"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/tvTitle"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+        app:layout_constraintStart_toStartOf="@+id/tvTitleF"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleF" />
 
     <TextView
-        android:id="@+id/tvRating"
+        android:id="@+id/tvRatingF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="5"
@@ -55,13 +55,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvRating"
-        app:layout_constraintStart_toEndOf="@+id/tvRating"
-        app:layout_constraintTop_toTopOf="@+id/tvRating"
+        app:layout_constraintBottom_toBottomOf="@+id/tvRatingF"
+        app:layout_constraintStart_toEndOf="@+id/tvRatingF"
+        app:layout_constraintTop_toTopOf="@+id/tvRatingF"
         app:srcCompat="@drawable/star" />
 
     <TextView
-        android:id="@+id/tvTime"
+        android:id="@+id/tvTimeF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -76,31 +76,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvTime"
-        app:layout_constraintStart_toEndOf="@+id/tvTime"
-        app:layout_constraintTop_toTopOf="@+id/tvTime"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTimeF"
+        app:layout_constraintStart_toEndOf="@+id/tvTimeF"
+        app:layout_constraintTop_toTopOf="@+id/tvTimeF"
         app:srcCompat="@drawable/time" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/btnAdd"
-        android:layout_width="44dp"
-        android:layout_height="40dp"
-        android:background="@drawable/red_bg"
+    <ImageView
+        android:id="@+id/imageView23"
+        android:layout_width="34dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/heart2"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:text="+"
-            android:textColor="@color/white"
-            android:textSize="30dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

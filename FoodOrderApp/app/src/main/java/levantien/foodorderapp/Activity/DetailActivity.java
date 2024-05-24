@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +33,8 @@ public class DetailActivity extends BaseActivity {
     String phoneId;
     FirebaseDatabase myFirebaseDatabase;
     DatabaseReference usersReference;
+    Foods currentFood;
+    private boolean isFavorite = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,89 @@ public class DetailActivity extends BaseActivity {
         phoneId = sharedPreferences.getString("phoneId", "");
         getIntentExtra();
         setVariable();
+
+        checkIfFavorite();
+
+        binding.btnFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleFavorite();
+            }
+        });
+    }
+
+    private void checkIfFavorite() {
+        if (object != null) {
+            usersReference.child(phoneId).child("favoritesFood").child(String.valueOf(object.getId()))
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            isFavorite = snapshot.exists();
+                            updateFavoriteIcon();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            // Xử lý lỗi
+                        }
+                    });
+        }
+    }
+
+    private void toggleFavorite() {
+        if(isLogin){
+            if (object != null) {
+                if (isFavorite) {
+                    // Xóa sản phẩm khỏi danh sách yêu thích
+                    usersReference.child(phoneId).child("favoritesFood").child(String.valueOf(object.getId())).removeValue()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    isFavorite = false;
+                                    updateFavoriteIcon();
+                                    Toast.makeText(DetailActivity.this, "Removed from favorites", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(DetailActivity.this, "Failed to remove from favorites", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else {
+                    // Thêm sản phẩm vào danh sách yêu thích
+                    usersReference.child(phoneId).child("favoritesFood").child(String.valueOf(object.getId())).setValue(object)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    isFavorite = true;
+                                    updateFavoriteIcon();
+                                    Toast.makeText(DetailActivity.this, "Added to favorites", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(DetailActivity.this, "Failed to add to favorites", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
+            } else {
+                Toast.makeText(DetailActivity.this, "Error: Product or User ID is null", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else {
+            Toast.makeText(this, "You need to log in to do this!", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void updateFavoriteIcon() {
+        if (isFavorite) {
+            binding.btnFav.setImageResource(R.drawable.heart);
+        } else {
+            binding.btnFav.setImageResource(R.drawable.favorite);
+        }
     }
 
     private void setVariable() {
