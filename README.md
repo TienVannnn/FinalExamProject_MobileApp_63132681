@@ -3,25 +3,24 @@
 * Mssv: 63132681
 
 ## 1. Giao diện Home:
-![Screenshot 2024-05-23 174930](https://github.com/TienVannnn/FinalExamProject_MobileApp_63132681/assets/145122420/32382f6e-802b-4cd9-9d21-b4fae8637ab8)
-![Screenshot 2024-05-23 174957](https://github.com/TienVannnn/FinalExamProject_MobileApp_63132681/assets/145122420/bd15aafc-83c2-47b3-95f9-bcdfd6050754)
+![Screenshot 2024-05-27 113452](https://github.com/TienVannnn/FinalExamProject_MobileApp_63132681/assets/145122420/372f0315-18da-4121-b14d-6395e2abfe6d)
+![Screenshot 2024-05-27 113505](https://github.com/TienVannnn/FinalExamProject_MobileApp_63132681/assets/145122420/f1531ca9-cbb2-4236-a9cd-bb100bc95e6d)
+
 
 ## 2.Giao diện Profile:
-![Screenshot 2024-05-25 100703](https://github.com/TienVannnn/FinalExamProject_MobileApp_63132681/assets/145122420/6a6cf55e-7bc9-44b7-955e-970b17a2295c)
-![Screenshot 2024-05-25 100703](https://github.com/TienVannnn/FinalExamProject_MobileApp_63132681/assets/145122420/c3f258f3-4760-4d22-acd8-585708f07fe1)
-
+![Screenshot 2024-05-27 113231](https://github.com/TienVannnn/FinalExamProject_MobileApp_63132681/assets/145122420/e4314e94-1d4c-4628-b12d-c467687e43e3)
+![Screenshot 2024-05-27 113300](https://github.com/TienVannnn/FinalExamProject_MobileApp_63132681/assets/145122420/e9e48032-c7e3-44aa-b6f6-6d7bdf22e2dd)
 
 ## 3. Giao diện đăng ký và đăng nhập:
-![Screenshot 2024-05-23 174552](https://github.com/TienVannnn/FinalExamProject_MobileApp_63132681/assets/145122420/e32316c5-65ac-40d1-972d-c5a3ae97f4f1)
-![Screenshot 2024-05-23 174754](https://github.com/TienVannnn/FinalExamProject_MobileApp_63132681/assets/145122420/77350eba-d0be-49b4-aca9-7a92dacf6a51)
+![Screenshot 2024-05-27 113602](https://github.com/TienVannnn/FinalExamProject_MobileApp_63132681/assets/145122420/4125caba-6701-4680-84bb-347b3431bda3)
+![Screenshot 2024-05-27 113614](https://github.com/TienVannnn/FinalExamProject_MobileApp_63132681/assets/145122420/f297a00b-5668-4b6f-b4e1-24ebe1d7e94b)
 
 ## 4. Giao diện xem danh sách từng loại sản phẩm và chi tiết sản phẩm:
-![Screenshot 2024-05-27 112304](https://github.com/TienVannnn/FinalExamProject_MobileApp_63132681/assets/145122420/d396c9ce-3f5c-4775-9fa4-3b061b2eb49f)
-![Screenshot 2024-05-23 175429](https://github.com/TienVannnn/FinalExamProject_MobileApp_63132681/assets/145122420/17cda8dd-0fa9-4761-a9b8-d1f6f57361e6)
+![Screenshot 2024-05-27 113713](https://github.com/TienVannnn/FinalExamProject_MobileApp_63132681/assets/145122420/b4d201a0-a5a4-4fb3-94bc-ea96096a697a)
+![Screenshot 2024-05-27 113736](https://github.com/TienVannnn/FinalExamProject_MobileApp_63132681/assets/145122420/a444c86d-5e8b-4104-bef4-7dd5f20a3b70)
 
 ## 6. Giao diện giỏ hàng:
-![Screenshot 2024-05-23 175659](https://github.com/TienVannnn/FinalExamProject_MobileApp_63132681/assets/145122420/d52a6cf2-2dd5-4f03-8fec-6ba6fd422a12)
-![Screenshot 2024-05-23 175725](https://github.com/TienVannnn/FinalExamProject_MobileApp_63132681/assets/145122420/b249c452-79e1-4bbd-a817-a9d5a850eaec)
+![Screenshot 2024-05-27 113848](https://github.com/TienVannnn/FinalExamProject_MobileApp_63132681/assets/145122420/2308996b-66ac-4b61-8bc6-a9ea8c2b3915)
 
 ## 7. Giao diện xem thông tin đơn hàng và chi tiết đơn hàng:
 ![Screenshot 2024-05-23 175936](https://github.com/TienVannnn/FinalExamProject_MobileApp_63132681/assets/145122420/4f3e008a-635d-4d0e-9499-120207482e46)
