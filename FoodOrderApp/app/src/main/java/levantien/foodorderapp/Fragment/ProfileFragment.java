@@ -106,6 +106,17 @@ public class ProfileFragment extends Fragment {
                 transaction.commit();
             }
         });
+
+        binding.btnFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment favFragment = new FavoritesFragment();
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.frameLayout, favFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

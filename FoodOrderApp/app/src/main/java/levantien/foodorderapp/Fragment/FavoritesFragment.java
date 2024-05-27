@@ -57,10 +57,7 @@ public class FavoritesFragment extends Fragment {
         phoneId = sharedPreferences.getString("phoneId", "");
 
         setupRecyclerView();
-        if (isLogin) {
-            loadFavoriteFoods();
-        }
-
+        loadFavoriteFoods();
     }
 
     private void setupRecyclerView() {
@@ -74,11 +71,23 @@ public class FavoritesFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 favoriteFoods.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Foods food = dataSnapshot.getValue(Foods.class);
-                    favoriteFoods.add(food);
+                if(!isLogin){
+                    binding.tvEmpty.setVisibility(View.VISIBLE);
+                    binding.recycleFav.setVisibility(View.GONE);
                 }
-                favoritesAdapter.notifyDataSetChanged();
+                else {
+                    if(snapshot.exists()){
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            Foods food = dataSnapshot.getValue(Foods.class);
+                            favoriteFoods.add(food);
+                        }
+                        favoritesAdapter.notifyDataSetChanged();
+                    }
+                    else {
+                        binding.tvEmpty.setVisibility(View.VISIBLE);
+                        binding.recycleFav.setVisibility(View.GONE);
+                    }
+                }
             }
 
             @Override

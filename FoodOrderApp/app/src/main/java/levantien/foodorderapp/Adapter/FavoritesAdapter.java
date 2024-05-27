@@ -1,6 +1,7 @@
 package levantien.foodorderapp.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 
 import java.util.ArrayList;
 
+import levantien.foodorderapp.Activity.DetailActivity;
 import levantien.foodorderapp.Domain.Foods;
 import levantien.foodorderapp.R;
 
@@ -43,6 +45,15 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Fava
         holder.price.setText("$" + selected.getPrice());
         holder.rating.setText("" + selected.getStar());
         Glide.with(holder.itemView.getContext()).load(selected.getImagePath()).transform(new CenterCrop(), new RoundedCorners(30)).into(holder.pic);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra("object", ds.get(position));
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
